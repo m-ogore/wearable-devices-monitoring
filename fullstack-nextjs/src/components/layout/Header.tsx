@@ -1,6 +1,6 @@
 function Header() {
     return (
-        <div className="bg-slate-200 p-8">
+        <div className="bg-slate-100 p-8">
             <div className="lg:flex items-center max-w-screen-2xl mx-auto space-x-48 relative">
                 {/** Logo or SiteName */}
                 <p className="text-center text-2xl font-bold">
