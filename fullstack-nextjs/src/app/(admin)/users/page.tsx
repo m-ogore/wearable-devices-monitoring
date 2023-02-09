@@ -9,7 +9,7 @@ const fetchUsers = async () => {
 
 
 const Page = async () => {
-    const users = await fetchUsers();
+    const users: any[] = [];
 
     return (
         <div>
