@@ -11,11 +11,45 @@ datasource db {
 }
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name     String  
-  isAdmin   Boolean 
+  name      String  
+  isAdmin   Boolean  @default(false)
+  device    Device?  @relation(fields: [deviceId], references: [id])
+  deviceId  String?   @unique @db.ObjectId
+}
+
+model Device {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  serialNumber  String   @unique 
+  user          User?
+  measurements  Measurement[]
+}
+
+
+model MeasurementType {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  name          String   @unique
+  metric        String
+  measurements  Measurement[]  
+}
+
+model Measurement {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  device            Device           @relation(fields: [deviceId], references: [id])
+  deviceId          String           @db.ObjectId
+  measurementType   MeasurementType  @relation(fields: [typeId], references: [id])
+  typeId            String           @db.ObjectId
+  lat               Float
+  long              Float
+  value             String?  
 }
 
 
