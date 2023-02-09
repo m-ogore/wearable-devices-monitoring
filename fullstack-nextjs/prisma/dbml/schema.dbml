@@ -1,0 +1,50 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  isAdmin Boolean [not null, default: false]
+  device Device
+  deviceId String [unique]
+}
+
+Table Device {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  serialNumber String [unique, not null]
+  user User
+  measurements Measurement [not null]
+}
+
+Table MeasurementType {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [unique, not null]
+  metric String [not null]
+  measurements Measurement [not null]
+}
+
+Table Measurement {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  device Device [not null]
+  deviceId String [not null]
+  measurementType MeasurementType [not null]
+  typeId String [not null]
+  lat Float [not null]
+  long Float [not null]
+  value String
+}
+
+Ref: User.deviceId - Device.id
+
+Ref: Measurement.deviceId > Device.id
+
+Ref: Measurement.typeId > MeasurementType.id
