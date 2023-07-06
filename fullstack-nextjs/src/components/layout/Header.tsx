@@ -12,6 +12,7 @@ function Header() {
                 <div className="hidden lg:flex items-center space-x-8 font-bold">
                     <Link href="/">Home</Link>
                     <Link href="/about">About</Link>
+                    <Link href="/charts">Charts (Demo)</Link>
                     <Link href="/contact">Contact</Link>
                 </div>
                 {/** Login Button */}
