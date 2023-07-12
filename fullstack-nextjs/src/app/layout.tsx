@@ -14,7 +14,13 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
+     
+          
       <body className='h-full'>
+
+
+
+        
         <Header />
         <main className='max-w-screen-lg mx-auto p-4'>
           {children}
