@@ -15,7 +15,7 @@ export default function RootLayout({
  {/* SIdebar Menus*/}
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "mongoDashboard", src: "Chart_fill" },
+    { title: "Dashboard", src: "Chart_fill" },
     { title: "Inbox", src: "Chat" },
     { title: "Accounts", src: "User", gap: true },
     { title: "Schedule ", src: "Calendar" },
@@ -75,6 +75,7 @@ export default function RootLayout({
                     </div>
                     <ul className="pt-6">
                       {Menus.map((Menu, index) => (
+                        <a href={`/${Menu.title}`}>
                         <li
                           key={index}
                           className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
@@ -82,11 +83,11 @@ export default function RootLayout({
                             index === 0 && "bg-light-white"
                           } `}
                         >
-                          <a href={'/mongoDashboard'}><img src={`/assets/${Menu.src}.png`} />
+                          <img src={`/assets/${Menu.src}.png`} />
                           <span className={`${!open && "hidden"} origin-left duration-200`}>
                             {Menu.title}
-                          </span></a>
-                        </li>
+                          </span>
+                        </li></a>
                       ))}
                     </ul>
                     
