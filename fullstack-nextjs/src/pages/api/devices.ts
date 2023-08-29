@@ -11,7 +11,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
   try {
     switch (req.method) {
       case 'GET': {
-        const deviceId = req.query.id as string;
+        const deviceId = req.query.serialNumber as string;
         if (deviceId) {
           // Get a single device if id is provided is the query
           // api/devices?id=1

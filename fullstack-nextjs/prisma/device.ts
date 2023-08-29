@@ -5,9 +5,9 @@ export const getAllDevices = async () => {
   return devices
 }
 
-export const getDevice = async (id: string ) => {
+export const getDevice = async (serialNumber: string ) => {
   const device = await prisma.device.findUnique({
-    where: { id }
+    where: { serialNumber }
   })
   return device
 }
