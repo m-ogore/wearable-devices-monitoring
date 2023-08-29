@@ -20,7 +20,7 @@ export default function RootLayout({
     { title: "Users", src: "User", gap: true },
     { title: "Schedule ", src: "Calendar" },
     { title: "Search", src: "Search"},
-    
+    { title: "Users-Test", src: "User", gap: true },
     { title: "Files ", src: "Folder", gap: true },
     { title: "Setting", src: "Setting" },
   ]; 
@@ -94,7 +94,6 @@ export default function RootLayout({
                     
                   </div>
                   <div className="h-screen flex-1 p-7">
-                    <h1 className="text-2xl font-semibold ">Home</h1>
                     {children}
                   </div>
                   
