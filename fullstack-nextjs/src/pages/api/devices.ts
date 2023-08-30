@@ -4,6 +4,7 @@ import {
   deleteDevice,
   getAllDevices,
   getDevice,
+  getDeviceSerial,
   updateDevice
 } from '../../../prisma/device'
 
@@ -11,13 +12,24 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
   try {
     switch (req.method) {
       case 'GET': {
-        const deviceId = req.query.serialNumber as string;
+        const deviceId = req.query.id as string;
+        const serial_number = req.query.serialNumber as string;
         if (deviceId) {
           // Get a single device if id is provided is the query
           // api/devices?id=1
           const device = await getDevice(deviceId)
           return res.status(200).json(device)
-        } else {
+        } 
+        else if(serial_number)
+        {
+          // Get a single device with Serial Number is provided is the query
+          // api/devices?serialNumber=marvtestwithpython
+          const device = await getDeviceSerial(serial_number)
+          return res.status(200).json(device)
+        
+        }
+        else
+         {
           // Otherwise, fetch all devices
           const devices = await getAllDevices()
           return res.json(devices)

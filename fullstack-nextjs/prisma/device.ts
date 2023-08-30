@@ -5,13 +5,18 @@ export const getAllDevices = async () => {
   return devices
 }
 
-export const getDevice = async (serialNumber: string ) => {
+export const getDevice = async (id: string ) => {
+  const device = await prisma.device.findUnique({
+    where: { id }
+  })
+  return device
+}
+export const getDeviceSerial = async (serialNumber: string ) => {
   const device = await prisma.device.findUnique({
     where: { serialNumber }
   })
   return device
 }
-
 export const createDevice = async (serialNumber: string) => {
   const device = await prisma.device.create({
     data: {
