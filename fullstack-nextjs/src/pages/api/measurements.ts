@@ -24,7 +24,9 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
         }
       }
       case 'POST': {
+         
         // Create a new measurement
+    
         const { deviceId,
             typeId,
             lat,
@@ -35,7 +37,9 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
             lat,
             long,
             value)
-        return res.json(measurement)
+        return res.json(measurement)*/
+        
+        
       }
       case 'PUT': {
         // Update an existing measurement
