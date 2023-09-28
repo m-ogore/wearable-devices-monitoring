@@ -79,7 +79,7 @@ String sendJSONData(String jsonStr) {
  
 
   // Prepare the HTTP POST request
-  String postRequest = "POST \wearable-api.php HTTP/1.1\r\n";
+  String postRequest = "POST /wearable-api.php HTTP/1.1\r\n";
   postRequest += "Host: " + String(server) + "\r\n";
   postRequest += "Content-Type: application/json\r\n";
   postRequest += "Content-Length: " + String(jsonStr.length()) + "\r\n\r\n";
