@@ -15,8 +15,8 @@ export const getMeasurement = async (id: string ) => {
 export const createMeasurement = async (
       deviceId: string,
       typeId: string,
-      lat: number,
-      long: number,
+      lat: string,
+      long: string,
       value: string) => {
   const measurement = await prisma.measurement.create({
     data: {
