@@ -38,8 +38,8 @@ Table Measurement {
   deviceId String [not null]
   measurementType MeasurementType [not null]
   typeId String [not null]
-  lat Float [not null]
-  long Float [not null]
+  lat String [not null]
+  long String [not null]
   value String
 }
 

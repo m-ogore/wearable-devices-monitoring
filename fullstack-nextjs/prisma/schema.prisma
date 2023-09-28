@@ -53,8 +53,8 @@ model Measurement {
   deviceId          String           @db.ObjectId
   measurementType   MeasurementType  @relation(fields: [typeId], references: [id])
   typeId            String           @db.ObjectId
-  lat               Float
-  long              Float
+  lat               String
+  long              String
   value             String?  
 }
 
