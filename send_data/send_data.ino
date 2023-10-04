@@ -5,10 +5,10 @@ SoftwareSerial gsmSerial(10, 11); // RX (pin 7), TX (pin 8)
 
 // Replace with your GSM/GPRS module's APN and server URL
 const char* apn = "internet.mtn";
-const char* server = "https://pelino.fr.fo";//?deviceId=64e12dc8fd9a79c1f4a3e826&typeId=6513a7726deb3c5300f73601&lat=0&long=0&value=just_tested_it_now";
+const char* server = "pelino.fr.fo";
 
 // JSON data
-const char* device_id = "649556dacd972ba7c9728392";
+const char* device_id = "64e12dc8fd9a79c1f4a3e826";
 const float data = 3.14;
 const char* type_id = "6513a7726deb3c5300f73601";
 
@@ -24,18 +24,16 @@ void setup() {
 }
 
 void loop() {
-  // Create a JSON object
-  String jsonStr = createJSON(device_id, type_id, data);
-  Serial.println(jsonStr);
+  // Create a URL with query parameters
+  String url = createURL(device_id, type_id, data);
+  Serial.println(url);
 
-  // Send the JSON data to the web server and handle the response
-  String response = sendJSONData(jsonStr);
+  // Send the GET request to the server and handle the response
+  String response = sendGETRequest(url);
   Serial.println("Server Response:");
   Serial.println(response);
 
   delay(60000); // Send data every 60 seconds (adjust as needed)
-
-  
 }
 
 void initGSM() {
@@ -56,40 +54,29 @@ void initGSM() {
   delay(1000);
 }
 
-String createJSON(const char* val1, const char* val2, float val3) {
-  String jsonString = "{\"deviceId\": \"" + String(val1) + "\", ";
-  jsonString += "\"typeId\": \"" + String(val2) + "\", ";
-  jsonString += "\"lat\": 0,";
-  jsonString += "\"long\": 0,";
-  jsonString += "\"value\": \"" + String(val3,2) + "\"}";
-      
-      /*
-      "{\"deviceId\": \"649556dacd972ba7c9728392",
-    "typeId": "6513a7726deb3c5300f73601",
-    "lat": 0,
-    "long": 0,
-    "value": "50"*/
-  return jsonString;
+String createURL(const char* val1, const char* val2, float val3) {
+  String url = "http://" + String(server) + "/wearable-api.php?";
+  url += "deviceId=" + String(val1);
+  url += "&typeId=" + String(val2);
+  url += "&lat=0&long=0";
+  url += "&value=" + String(val3, 2);
+  return url;
 }
 
-String sendJSONData(String jsonStr) {
+String sendGETRequest(String url) {
   // Establish an HTTP connection
-  gsmSerial.println("AT+CIPSTART=\"SSL\",\"" + String(server) + "\",443");
+  gsmSerial.println("AT+CIPSTART=\"TCP\",\"" + String(server) + "\",80");
   delay(2000);
- 
 
-  // Prepare the HTTP POST request
-  String postRequest = "POST /wearable-api.php HTTP/1.1\r\n";
-  postRequest += "Host: " + String(server) + "\r\n";
-  postRequest += "Content-Type: application/json\r\n";
-  postRequest += "Content-Length: " + String(jsonStr.length()) + "\r\n\r\n";
-  postRequest += jsonStr;
+  // Prepare the HTTP GET request
+  String getRequest = "GET " + url + " HTTP/1.1\r\n";
+  getRequest += "Host: " + String(server) + "\r\n\r\n";
 
-  // Send the HTTP POST request
+  // Send the HTTP GET request
   gsmSerial.print("AT+CIPSEND=");
-  gsmSerial.println(postRequest.length());
+  gsmSerial.println(getRequest.length());
   delay(1000);
-  gsmSerial.print(postRequest);
+  gsmSerial.print(getRequest);
   delay(1000);
 
   // Read and capture the server response
