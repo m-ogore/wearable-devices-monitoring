@@ -10,20 +10,8 @@ import {
 export default async function handle (req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
+
       case 'GET': {
-        const measurementId = req.query.id as string;
-        if (measurementId) {
-          // Get a single measurement if id is provided is the query
-          // api/measurements?id=1
-          const measurement = await getMeasurement(measurementId)
-          return res.status(200).json(measurement)
-        } else {
-          // Otherwise, fetch all measurements
-          const measurements = await getAllMeasurements()
-          return res.json(measurements)
-        }
-      }
-      case 'POST': {
          
         // Create a new measurement
     
@@ -31,13 +19,20 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
             typeId,
             lat,
             long,
-            value } = req.body
-        const measurement = await createMeasurement(deviceId,
+            value } = req.query
+        if (!value)
+        {
+          const measurement = await createMeasurement(deviceId,
             typeId,
             lat,
             long,
             value)
-        return res.json(measurement)*/
+          return res.json({})
+        }
+        
+        
+        
+        return res.json(measurement)
         
         
       }
