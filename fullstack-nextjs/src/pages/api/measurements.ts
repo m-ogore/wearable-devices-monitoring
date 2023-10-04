@@ -21,7 +21,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
             long,
             value } = req.query
         if (!value) {
-          return res.json({})
+          const measurements = await getAllMeasurements();
+          return res.json(measurements)
         } else
         {
           const measurement = await createMeasurement(deviceId as string,
