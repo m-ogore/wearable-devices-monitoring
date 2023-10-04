@@ -20,19 +20,21 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
             lat,
             long,
             value } = req.query
-        if (!value)
-        {
-          const measurement = await createMeasurement(deviceId,
-            typeId,
-            lat,
-            long,
-            value)
+        if (!value) {
           return res.json({})
+        } else
+        {
+          const measurement = await createMeasurement(deviceId as string,
+            typeId as string,
+            lat as string,
+            long as string,
+            value as string)
+          return res.json(measurement)
         }
         
         
         
-        return res.json(measurement)
+       
         
         
       }
