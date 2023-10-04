@@ -15,8 +15,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
          
         // Create a new measurement
     
-        const { deviceId,
-            typeId,
+        const { deviceid,
+            typeid,
             lat,
             long,
             value } = req.query
@@ -25,8 +25,8 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse)
           return res.json(measurements)
         } else
         {
-          const measurement = await createMeasurement(deviceId as string,
-            typeId as string,
+          const measurement = await createMeasurement(deviceid as string,
+            typeid as string,
             lat as string,
             long as string,
             value as string)
